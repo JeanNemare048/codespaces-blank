@@ -1,0 +1,6 @@
+idea moment: firefighter game
+1: multiple levels
+2: water = 10 different images
+3: fire = enemy, water = enemykiller
+4: lifebar (?) for the fire remaining
+5: fire = at least 15 per 40 pixels. Max 35 per 40 pixels
