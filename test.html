@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Aiming Bar</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #222;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        #aimingBar {
+            position: absolute;
+            left: 50px;
+            bottom: 50px;
+            width: 100px;
+            height: 20px;
+            background-color: #FF5722;
+            border-radius: 10px;
+            transform-origin: 0% 50%; /* Rotate from left side */
+            transition: transform 0.1s ease-out;
+        }
+        
+        #coords {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="aimingBar"></div>
+    <div id="coords">Move mouse to aim bar</div>
+    
+    <script>
+        const aimingBar = document.getElementById('aimingBar');
+        const coordsDisplay = document.getElementById('coords');
+        
+        document.addEventListener('mousemove', function(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            
+            // Bar position (fixed at bottom-left)
+            const barX = 50; // left position
+            const barY = window.innerHeight - 50; // bottom position
+            
+            // Calculate angle
+            const deltaX = mouseX - barX;
+            const deltaY = mouseY - barY;
+            
+            // Calculate angle in degrees
+            const angleRad = Math.atan2(deltaY, deltaX);
+            const angleDeg = angleRad * (180 / Math.PI);
+            
+            // Rotate the bar
+            aimingBar.style.transform = `rotate(${angleDeg}deg)`;
+            
+            // Update display
+            coordsDisplay.textContent = `Angle: ${angleDeg.toFixed(1)}°`;
+        });
+    </script>
+</body>
+</html>

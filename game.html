@@ -22,7 +22,7 @@
 			default: 'arcade',
 			arcade: {
 					gravity: { y: 300 },
-					debug: false
+					debug: true
 			}
 		},
 		scene: {
@@ -35,6 +35,8 @@
 	var water;
 	var fire;
 	var cursor;
+	var cursors;
+	var platforms;
 
 	var game = new Phaser.Game(config);
 
@@ -43,29 +45,66 @@
 		this.load.image('water', 'assets/water.png');
 		this.load.image('fire', 'assets/fire.png');
 		this.load.image('cursor', 'assets/cursor.png');
+		this.load.image('ground', 'assets/platform.png');
 	}
 
 	function create ()
-		{
-			this.add.image(700, 100, 'fire');
-			this.add.image(700, 300, 'fire');
-			this.add.image(700, 500, 'fire');
+	{
+		cursors = this.input.keyboard.createCursorKeys();
+		this.add.image(700, 100, 'fire');
+		this.add.image(700, 300, 'fire');
+		this.add.image(700, 500, 'fire');
+		
+		platforms = this.physics.add.staticGroup();
+
+		platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 	
 		water = this.physics.add.sprite(20, 100, 'water');
-		water.setscale(1);
+		water.setScale(1);
 		fire = this.physics.add.sprite(200, 450, 'fire');
-		fire.setscale(0.5);
-		cursor = this.physics.add.sprite(300, 450, 'cursor');
-		cursor.setscale(0.5);
+		fire.setScale(0.5);
+		cursor = this.physics.add.sprite(100, 100, 'cursor');
+		cursor.setScale(1);
+		cursor.body.allowGravity = false;
+		water.setBounce(0.1);
+		water.setCollideWorldBounds(true);
+		this.physics.add.collider(water, platforms);
+
 	}
 
 	function update ()
     {
+		if (cursors.left.isDown)
+        {
+            cursor.setVelocityX(-160);
+        }
+        else if (cursors.right.isDown)
+        {
+            cursor.setVelocityX(160);
+        }
+        else if (cursors.up.isDown)
+		{
+			cursor.setVelocityY(-160);
+		}
+		else if (cursors.down.isDown)
+		{
+			cursor.setVelocityY(160);
+		}
+		else
+		{
+            cursor.setVelocityX(0);
+            cursor.setVelocityY(0);
+        }
+
     }
 
-	// function shootWater() {
-	// 	this.physics.accelerateToObject(water, cursor, 60, 200, 200);
-	// }
+	function shootWater() {
+		
+		if (cursors.space.isDown)
+		{
+		this.physics.accelerateToObject(water, cursor, 60, 200, 200);
+		}
+	}
 </script>
 
 </body>
