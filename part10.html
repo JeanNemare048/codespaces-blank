@@ -47,7 +47,7 @@ function preload ()
 {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/explosion.png');
+    this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
@@ -172,6 +172,7 @@ function collectStar (player, star)
 
     if (stars.countActive(true) === 0)
     {
+        console.log("test stars");
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
 

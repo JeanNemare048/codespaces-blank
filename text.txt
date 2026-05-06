@@ -4,3 +4,7 @@ idea moment: firefighter game
 3: fire = enemy, water = enemykiller
 4: lifebar (?) for the fire remaining
 5: fire = at least 15 per 40 pixels. Max 35 per 40 pixels
+
+FHS Fire House Studio
+
+repeat: 9, setXY: { x: 700, y: 50, stepY: 50 }}
