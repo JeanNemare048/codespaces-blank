@@ -1,15 +1,19 @@
 var bg;
 
-class Titre extends Phaser.Scene {
+class Menu extends Phaser.Scene {
     constructor(){
-        super({key : 'titre_scene'})
+        super({key : 'menu_scene'})
     }
 
     init(data){
     }
 
+    preload(){
+        this.load.image('first_screen', 'assets/first_screen.png');
+    }
+
 create(data){
-bg = this.add.image(0, 0, 'title');
+bg = this.add.image(0, 0, 'first_screen');
 bg.setOrigin(0,0);
 
 this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
@@ -37,4 +41,4 @@ updateModeDisplay()
         }
     }
 }
-export default Titre
+export default Menu
