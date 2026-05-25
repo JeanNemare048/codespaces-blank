@@ -10,6 +10,9 @@ var controlMode = 'mouse'; // 'mouse' or 'arrows'
 var MKey; // For M key detection
 var waterGroup;
 var fireGroup;
+var house;
+var tree;
+var appartment;
 
 class Game3 extends Phaser.Scene {
     constructor() {
@@ -22,9 +25,13 @@ class Game3 extends Phaser.Scene {
         this.load.image('cursor', 'assets/cursor.png');
         this.load.image('ground', 'assets/platform.png');
         this.load.image('firetruck', 'assets/firetruck.png');
+        this.load.image('house', 'assets/house.png');
+        this.load.image('tree', 'assets/tree.png');
     }
 
     create() {
+        
+
         cursors = this.input.keyboard.createCursorKeys();
         this.nextPrintTime = 0;
 
@@ -79,6 +86,9 @@ class Game3 extends Phaser.Scene {
 
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
+        document.getElementById('aimingBar').style.display = 'block';
+        document.getElementById('modeDisplay').style.display = 'block';
 
         // updateModeDisplay();
     }

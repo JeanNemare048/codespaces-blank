@@ -10,6 +10,10 @@ var controlMode = 'mouse'; // 'mouse' or 'arrows'
 var MKey; // For M key detection
 var waterGroup;
 var fireGroup;
+var house;
+var tree;
+var appartment;
+var type;
 
 class Game1 extends Phaser.Scene {
     constructor() {
@@ -22,11 +26,14 @@ class Game1 extends Phaser.Scene {
         this.load.image('cursor', 'assets/cursor.png');
         this.load.image('ground', 'assets/platform.png');
         this.load.image('firetruck', 'assets/firetruck.png');
+        this.load.image('house', 'assets/house.png');
+        this.load.image('tree', 'assets/tree.png');
     }
 
     create() {
         cursors = this.input.keyboard.createCursorKeys();
         this.nextPrintTime = 0;
+        this.choseType();
 
         MKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
@@ -43,22 +50,7 @@ class Game1 extends Phaser.Scene {
         waterGroup = this.physics.add.group();
         waterGroup.add(water);
 
-        fire = this.physics.add.sprite(700, 500, 'fire');
-        fire.setScale(0.5);
-        fire.body.allowGravity = false;
-
-        fireGroup = this.physics.add.staticGroup({
-            key: 'fire',
-            repeat: 3,
-            setXY: { x: 700, y: 100, stepY: 120 }
-        });
-        fire.destroy();
-
-        fireGroup.children.iterate(function (child) {
-            child.setScale(0.5);
-            child.body.allowGravity = false;
-            child.refreshBody();
-        });
+        this.spawnFire();
 
         this.physics.add.overlap(fireGroup, waterGroup, function (fireCollide, waterCollide) {
             fireCollide.destroy();
@@ -79,6 +71,9 @@ class Game1 extends Phaser.Scene {
 
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
+        document.getElementById('aimingBar').style.display = 'block';
+        document.getElementById('modeDisplay').style.display = 'block';
 
         // updateModeDisplay();
     }
@@ -147,6 +142,31 @@ class Game1 extends Phaser.Scene {
         aimingBar.style.transform = `rotate(${angleDeg}deg)`;
         if (angleDisplay) {
             angleDisplay.textContent = `Angle: ${angleDeg.toFixed(1)}°`;
+        }
+    }
+    
+    spawnFire() {
+        fireGroup = this.physics.add.staticGroup({
+            key: 'fire',
+            repeat: 3,
+            setXY: { x: 700, y: 100, stepY: 120 }
+        });
+        fireGroup.children.iterate(function (child) {
+            child.setScale(0.5);
+            child.body.allowGravity = false;
+            child.refreshBody();
+        });
+    }
+
+    choseType() {
+        const types = ['house', 'tree', 'appartment'];
+        type = Phaser.Utils.Array.GetRandom(types);
+        if (type === 'house') {
+            house = this.add.image(600, 400, 'house').setScale(0.9);
+        } else if (type === 'tree') {
+            tree = this.add.image(700, 470, 'tree').setScale(1);
+        } else if (type === 'appartment') {
+            appartment = this.add.image(700, 100, 'house').setScale(0.7);
         }
     }
 

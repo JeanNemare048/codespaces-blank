@@ -14,20 +14,13 @@ class Menu extends Phaser.Scene {
 
 create(data){
 bg = this.add.image(0, 0, 'first_screen');
+bg.setScale(1);
 bg.setOrigin(0,0);
 
 this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
 this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
 this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
-}
-
-updateModeDisplay()
-{
-    var display = document.getElementById('modeDisplay');
-    var modeText = "press 1, 2 or 3 to start the corresponding difficulty";
-    var color = 'white';
-    
-    display.innerHTML = `Mode: <span style="color: ${color}; font-weight: bold;">${modeText}</span><br>Press M to toggle`;
+this.add.text(400, 150, 'Press 1, 2 or 3 to start the corresponding difficulty', { fontSize: '24px', fill: '#000000', stroke: '#999999', strokeThickness: 4 }).setOrigin(0.5);
 }
     update(time, delta){
         if(this.keyOne.isDown){
